@@ -3,11 +3,12 @@
       xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
       version="3.0">
 
-	<!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
+	<!-- context-param 和 listener在启动时被加载，context-param作为键对值被存入web容器启动时创建的ServletContext -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/spring/root-context.xml</param-value>
 	</context-param>
+	
 	
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
 	<listener>
@@ -24,7 +25,7 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
     
-	<!-- Processes application requests -->
+	<!--DispatcherServlet 配置  load-on-startup设置优先级，值越小启动越优先 -->
 	<servlet>
 		<servlet-name>appServlet</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>

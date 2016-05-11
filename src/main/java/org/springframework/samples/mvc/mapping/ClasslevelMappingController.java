@@ -9,14 +9,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
+//类级别匹配
 @RequestMapping("/class-mapping/*")
 public class ClasslevelMappingController {
 
+	//在类级别匹配路径后加方法路径
 	@RequestMapping("/path")
 	public @ResponseBody String byPath() {
 		return "Mapped by path!";
 	}
-
+	//可用正则*匹配路径名
 	@RequestMapping(value="/path/*", method=RequestMethod.GET)
 	public @ResponseBody String byPathPattern(HttpServletRequest request) {
 		return "Mapped by path pattern ('" + request.getRequestURI() + "')";
@@ -26,12 +28,13 @@ public class ClasslevelMappingController {
 	public @ResponseBody String byMethod() {
 		return "Mapped by path + method";
 	}
-
+	
+	//通过请求参数匹配 (带 foo 参数则调用byParameter()方法)
 	@RequestMapping(value="/parameter", method=RequestMethod.GET, params="foo")
 	public @ResponseBody String byParameter() {
 		return "Mapped by path + method + presence of query parameter!";
 	}
-
+	//通过请求参数匹配 (不带 foo 参数则调用byParameterNegation()方法)
 	@RequestMapping(value="/parameter", method=RequestMethod.GET, params="!foo")
 	public @ResponseBody String byParameterNegation() {
 		return "Mapped by path + method + not presence of query!";
